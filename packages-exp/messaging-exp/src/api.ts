@@ -15,14 +15,15 @@
  * limitations under the License.
  */
 
+import { FirebaseApp, _getProvider } from '@firebase/app-exp';
 import { FirebaseMessaging, MessagePayload } from './interfaces/public-types';
 import { NextFn, Observer, Unsubscribe } from '@firebase/util';
 
 import { MessagingService } from './messaging-service';
 import { Provider } from '@firebase/component';
 import { deleteToken as _deleteToken } from './api/deleteToken';
-import { _getProvider, FirebaseApp } from '@firebase/app-exp';
 import { getToken as _getToken } from './api/getToken';
+import { isSupported as _isSupported } from './api/isSupported';
 import { onBackgroundMessage as _onBackgroundMessage } from './api/onBackgroundMessage';
 import { onMessage as _onMessage } from './api/onMessage';
 
@@ -121,7 +122,7 @@ export function onMessage(
  *
  * @returns To stop listening for messages execute this returned function
  *
- * make it internal to hide it from the browser entrypoint
+ * make it internal to hide it from the browser entry point.
  * @internal
  */
 export function onBackgroundMessage(
@@ -129,4 +130,11 @@ export function onBackgroundMessage(
   nextOrObserver: NextFn<MessagePayload> | Observer<MessagePayload>
 ): Unsubscribe {
   return _onBackgroundMessage(messaging as MessagingService, nextOrObserver);
+}
+
+/**
+ * Checks if the current browser is supported.
+ */
+export async function isSupported(): Promise<boolean> {
+  return _isSupported();
 }
