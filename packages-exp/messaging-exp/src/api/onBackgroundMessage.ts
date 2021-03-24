@@ -20,7 +20,6 @@ import { NextFn, Observer, Unsubscribe } from '@firebase/util';
 
 import { MessagePayload } from '../interfaces/public-types';
 import { MessagingService } from '../messaging-service';
-import { SwController } from '../listeners/sw-controller';
 
 export function onBackgroundMessage(
   messaging: MessagingService,
@@ -29,9 +28,6 @@ export function onBackgroundMessage(
   if (self.document !== undefined) {
     throw ERROR_FACTORY.create(ErrorCode.AVAILABLE_IN_SW);
   }
-
-  // Initialize swController which resister listeners for onPush, onSubChange, onNotificationClick.
-  new SwController(messaging);
 
   messaging.onBackgroundMessageHandler = nextOrObserver;
 

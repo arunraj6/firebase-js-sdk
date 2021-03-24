@@ -20,7 +20,6 @@ import { NextFn, Observer, Unsubscribe } from '@firebase/util';
 
 import { MessagePayload } from '../interfaces/public-types';
 import { MessagingService } from '../messaging-service';
-import { messageEventListener } from '../listeners/messageEventListener';
 
 export function onMessage(
   messaging: MessagingService,
@@ -29,10 +28,6 @@ export function onMessage(
   if (!navigator) {
     throw ERROR_FACTORY.create(ErrorCode.AVAILABLE_IN_WINDOW);
   }
-
-  navigator.serviceWorker.addEventListener('message', e =>
-    messageEventListener(messaging, e)
-  );
 
   messaging.onMessageHandler = nextOrObserver;
 

@@ -20,7 +20,11 @@ import '@firebase/installations-exp';
 import { ERROR_FACTORY, ErrorCode } from './util/errors';
 
 import { FirebaseMessaging } from './interfaces/public-types';
+import { MessagingService } from './messaging-service';
+import { getApp } from '@firebase/app-exp';
+import { getMessaging } from './api';
 import { isWindowSupported } from './api/isSupported';
+import { messageEventListener } from './listeners/window-listener';
 import { registerMessaging } from './helpers/register';
 
 export {
@@ -48,3 +52,7 @@ void (async () => {
 })();
 
 registerMessaging();
+
+navigator.serviceWorker.addEventListener('message', e =>
+  messageEventListener(getMessaging(getApp()) as MessagingService, e)
+);
