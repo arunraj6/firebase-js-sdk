@@ -17,7 +17,8 @@
 
 import {
   _getProvider,
-  FirebaseApp
+  FirebaseApp,
+  getApp
   // eslint-disable-next-line import/no-extraneous-dependencies
 } from '@firebase/app-exp';
 
@@ -279,7 +280,7 @@ export { StringFormat } from '../src/implementation/string';
  * @returns A Firebase StorageService instance.
  */
 export function getStorage(
-  app: FirebaseApp,
+  app: FirebaseApp = getApp(),
   bucketUrl?: string
 ): StorageService {
   // Dependencies

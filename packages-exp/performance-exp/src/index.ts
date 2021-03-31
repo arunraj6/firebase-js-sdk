@@ -38,6 +38,7 @@ import {
 import { name, version } from '../package.json';
 import { Trace } from './resources/trace';
 import '@firebase/installations-exp';
+import { getApp } from '../../app-exp/dist/packages-exp/app-exp/src';
 
 const DEFAULT_ENTRY_NAME = '[DEFAULT]';
 
@@ -46,7 +47,9 @@ const DEFAULT_ENTRY_NAME = '[DEFAULT]';
  * @param app - The FirebaseApp to use.
  * @public
  */
-export function getPerformance(app: FirebaseApp): FirebasePerformance {
+export function getPerformance(
+  app: FirebaseApp = getApp()
+): FirebasePerformance {
   const provider = _getProvider(app, 'performance-exp');
   const perfInstance = provider.getImmediate() as PerformanceController;
   return perfInstance;

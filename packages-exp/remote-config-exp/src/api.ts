@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-import { _getProvider, FirebaseApp } from '@firebase/app-exp';
+import { _getProvider, FirebaseApp, getApp } from '@firebase/app-exp';
 import {
   LogLevel as RemoteConfigLogLevel,
   RemoteConfig,
@@ -35,7 +35,7 @@ import { LogLevel as FirebaseLogLevel } from '@firebase/logger';
  *
  * @public
  */
-export function getRemoteConfig(app: FirebaseApp): RemoteConfig {
+export function getRemoteConfig(app: FirebaseApp = getApp()): RemoteConfig {
   const rcProvider = _getProvider(app, RC_COMPONENT_NAME);
   return rcProvider.getImmediate();
 }

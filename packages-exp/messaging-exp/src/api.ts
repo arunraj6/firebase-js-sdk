@@ -30,6 +30,7 @@ import { _getProvider, FirebaseApp } from '@firebase/app-exp';
 import { getToken as _getToken } from './api/getToken';
 import { onBackgroundMessage as _onBackgroundMessage } from './api/onBackgroundMessage';
 import { onMessage as _onMessage } from './api/onMessage';
+import { getApp } from '../../app-exp/dist/packages-exp/app-exp/src';
 
 /**
  * Retrieves a firebase messaging instance.
@@ -38,7 +39,7 @@ import { onMessage as _onMessage } from './api/onMessage';
  *
  * @public
  */
-export function getMessaging(app: FirebaseApp): FirebaseMessaging {
+export function getMessaging(app: FirebaseApp = getApp()): FirebaseMessaging {
   const messagingProvider: Provider<'messaging-exp'> = _getProvider(
     app,
     'messaging-exp'

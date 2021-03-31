@@ -17,7 +17,7 @@
  * limitations under the License.
  */
 
-import { _getProvider, FirebaseApp } from '@firebase/app-exp';
+import { _getProvider, FirebaseApp, getApp } from '@firebase/app-exp';
 import {
   Analytics,
   AnalyticsCallOptions,
@@ -62,7 +62,7 @@ declare module '@firebase/component' {
  *
  * @param app - The FirebaseApp to use.
  */
-export function getAnalytics(app: FirebaseApp): Analytics {
+export function getAnalytics(app: FirebaseApp = getApp()): Analytics {
   // Dependencies
   const analyticsProvider: Provider<'analytics-exp'> = _getProvider(
     app,
