@@ -17,15 +17,8 @@
 
 import '@firebase/installations-exp';
 
-import { ERROR_FACTORY, ErrorCode } from './util/errors';
-
 import { FirebaseMessaging } from './interfaces/public-types';
-import { MessagingService } from './messaging-service';
-import { getApp } from '@firebase/app-exp';
-import { getMessaging } from './api';
-import { isWindowSupported } from './api/isSupported';
-import { messageEventListener } from './listeners/window-listener';
-import { registerMessaging } from './helpers/register';
+import { registerWindowMessaging } from './helpers/register';
 
 export {
   getToken,
@@ -43,16 +36,4 @@ declare module '@firebase/component' {
   }
 }
 
-// Top-level 'await' requires 'module' option set to 'esnext' or 'system', and 'target' option
-// set to 'es2017' or higher. For compatibility, use async expression here.
-void (async () => {
-  if (!(await isWindowSupported())) {
-    throw ERROR_FACTORY.create(ErrorCode.UNSUPPORTED_BROWSER);
-  }
-})();
-
-registerMessaging();
-
-navigator.serviceWorker.addEventListener('message', e =>
-  messageEventListener(getMessaging(getApp()) as MessagingService, e)
-);
+registerWindowMessaging();
